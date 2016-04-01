@@ -1,0 +1,32 @@
+<div class="video-pane">
+	<input class="searchField" placeholder="Search" type="text" ng-model="filterBy" ng-change="changeCurrentVideoNumbers();highlightClass='true'">
+	<div class="controls group">
+		<div class="current-video-number">Video {{ filterBy.length>0 && ( filteredTumbnails.length > 0 && ( filteredTumbnails.indexOf(model.selected) >= 0 && filteredTumbnails.indexOf(model.selected)+1 || '1' ) || '0' ) || thumbnails.indexOf(model.selected) + 1 }} of {{filteredTumbnails.length}}</div>
+		<div class="icons">
+			<img ng-init="hoverUrlNext = 'previous_2x.png'" ng-mouseover = "hoverUrlNext = 'previous_over_2x.png'" ng-mouseout="hoverUrlNext = 'previous_2x.png'" ng-src="images/{{hoverUrlNext}}" class="previous-next-btn" ng-click="highlightNextAndPlayVideo('previous');highlightClass='false'" alt="Previous" >
+			<img ng-init="hoverUrlPrev = 'next_2x.png'"     ng-mouseover = "hoverUrlPrev = 'next_over_2x.png'"     ng-mouseout="hoverUrlPrev = 'next_2x.png'"     ng-src="images/{{hoverUrlPrev}}" class="previous-next-btn" ng-click="highlightNextAndPlayVideo('next');highlightClass='false'" alt="Next">
+		</div>
+	</div>
+	<div class="video-pane-collection">
+			<div class="scroll-anchor">
+				<div ng-repeat="data in filteredTumbnails = (thumbnails | filter: { filter_cloud: filterBy})">
+				<div class="tile" ng-class="{ 'last':$last, 'active' : model.selected === data, 'highlighted': filterBy.length > 0 && $first && highlightClass=='true' }">
+					<div class="inner" ng-click="model.selected = data;playVideo(model.selected);highlightClass='false'" >
+						<table>
+							<tr>
+								<td class="first">
+									<span>{{data.pane.title.split(" ")[0]}}<br><span>{{ data.pane.title.indexOf(" ")!= '-1' ? data.pane.title.substr(data.pane.title.indexOf(" ") + 1):"" }}</span></span>
+									<img ng-if="data.show_desktop_icon" class="desktop" width="10" src="images/desktop_2x.png" >
+									<img ng-if="data.show_mobile_icon" ng-class="!data.show_desktop_icon ? 'mobile':'mobile-desktop'" width="5" src="images/mobile_2x.png" >
+								</td>
+								<td class="second">
+									{{data.pane.help_text}}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			</div>
+	</div>
+</div>

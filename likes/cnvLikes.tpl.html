@@ -1,0 +1,21 @@
+ <div class="cnv-likes" ng-init="showFeedback = 'true'" ng-show="!disableFeedback" >
+	<div class="feedback group" ng-show="showFeedback">
+		<span class="text">
+			{{video.likes}} people found this video helpful.<br>Was this video helpful?
+		</span>
+		<div class="likebox">
+			<div>
+				<div ng-click="userGaveFeedBack(video.id,'1')">
+					<img style="width: 19px" src="images/up_2x.png" alt="" class="like">
+				</div>
+				<div ng-click="userGaveFeedBack(video.id,'2')">
+					<img style="width: 19px" src="images/down_2x.png" alt="" class="dislike">
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="feedback-complete" ng-show="!showFeedback">
+		{{feedbackSuccessMessage}}
+	</div>
+</div>
